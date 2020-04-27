@@ -19,12 +19,14 @@ function balance(balanceList, monthList){
     
     // Spausdiniams
     let sum = 0;
+    let income = 0;
+    let expense = 0;
+
     let HTML = '';
     for (let i = 0; i < lineUp.length; i++) {
         const element = lineUp[i];
-        let sumA = element.income;
-        let sumB = element.expense;
-
+        let sumA = element.income || 0;
+        let sumB = element.expense || 0;
         if (!element.income) {
             sumA = 0
         }
@@ -32,7 +34,9 @@ function balance(balanceList, monthList){
             sumB = 0
         }
         sum += sumA - sumB;
-
+        income += sumA;
+        expense += sumB;
+        
             HTML += `
             <div class="table-row">
                 <div class="cell">${i+1}</div>
@@ -42,8 +46,25 @@ function balance(balanceList, monthList){
                 <div class="cell">${sum} Eur</div>
             </div>
             `;
-    }
+        }
+        document.querySelector('.table-footer > .cell:nth-child(3)').innerHTML = income+' Eur';
+        document.querySelector('.table-footer > .cell:nth-child(4)').innerHTML = expense+' Eur';
     return document.querySelector('#table-content').innerHTML = HTML;
+    
 }
 balance(account, month);
 
+// function tableFooter() {
+    
+//     let footerHTML = '';
+
+//     footerHTML += `
+//                 <div class="cell"></div>
+//                 <div class="cell"></div>
+//                 <div class="cell">0.00 Eur</div>
+//                 <div class="cell">0.00 Eur</div>
+//                 <div class="cell">HHH Eur</div>
+//     `;
+//     return document.querySelector('.table-footer').innerHTML = footerHTML;
+// }
+// tableFooter();
