@@ -41,3 +41,12 @@ function balance(balanceList){
     return document.querySelector('#table-content').innerHTML = HTML;
 }
 balance(account);
+
+function rimantoMetai() {
+    let HTML = '';
+    HTML += `
+    <h1>Rimanto metai</h1>
+    `;
+    return document.querySelector('.container .row').innerHTML = HTML;
+}
+rimantoMetai();
