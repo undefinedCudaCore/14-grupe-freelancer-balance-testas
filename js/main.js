@@ -2,16 +2,16 @@
 
 const month = ['sausis', 'vasaris', 'kovas', 'balandis', 'geguze', 'birzelis', 'liepa', 'rugpjutis', 'rugsejis', 'splis', 'lapkrituis', 'gruodis'];
 
-
-
-if (!account.income) {
-    console.log(account);
-    
+function months(account) {
+    for (let m = 0; m < account.length; m++) {
+        const element = account[m];
+        const element2 = month[m];
+        element.month = element2;
+        
+        // element.month = month[i];
+    } 
 }
-if (!account.expense) {
-    
-}
-
+months(account);
 
 function balance(balanceList){
     let HTML = '';
@@ -19,24 +19,22 @@ function balance(balanceList){
         const element = balanceList[i];
         let sumA = element.income;
         let sumB = element.expense;
-        let sum = sumA - sumB;
-        let sumT = 0;
 
-        
-        if ( sum <= NaN ) {
-            sumT = element.income;
-            
-        } else {
-            sumT = sum;
+        if (!element.income) {
+            sumA = 0
         }
-       
+        if (!element.expense) {
+            sumB = 0
+        }   
+        let sum = sumA - sumB;
+
             HTML += `
             <div class="table-row">
                 <div class="cell">1</div>
                 <div class="cell">${element.month}</div>
                 <div class="cell">${element.income} Eur</div>
                 <div class="cell">${element.expense}</div>
-                <div class="cell">${sumT} Eur</div>
+                <div class="cell">${sum} Eur</div>
             </div>
             `;
     }
