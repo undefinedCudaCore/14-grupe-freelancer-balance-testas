@@ -1,22 +1,27 @@
 "use strict"
 
-const month = ['sausis', 'vasaris', 'kovas', 'balandis', 'geguze', 'birzelis', 'liepa', 'rugpjutis', 'rugsejis', 'splis', 'lapkrituis', 'gruodis'];
+const month = ['Sausis', 'Vasaris', 'Kovas', 'Balandis', 
+                'Geguze', 'Birzelis', 'Liepa', 'Rugpjutis', 
+                'Rugsejis', 'Spalis', 'Lapkrituis', 'Gruodis'];
 
-function months(account) {
-    for (let m = 0; m < account.length; m++) {
-        const element = account[m];
-        const element2 = month[m];
-        element.month = element2;
-        
-        // element.month = month[i];
-    } 
-}
-months(account);
-
-function balance(balanceList){
+function balance(balanceList, monthList){
+    // Rikiaviams
+    let lineUp = [];
+    for (let l = 0; l < balanceList.length; l++) {
+        const lineUpMonths = l+1;
+            for (let k = 0; k < balanceList.length; k++) {
+                if (balanceList[k].month === lineUpMonths) {
+                    lineUp.push(balanceList[k]);
+                        break;
+                }                
+            }
+    }
+    
+    // Spausdiniams
+    let sum = 0;
     let HTML = '';
-    for (let i = 0; i < balanceList.length; i++) {
-        const element = balanceList[i];
+    for (let i = 0; i < lineUp.length; i++) {
+        const element = lineUp[i];
         let sumA = element.income;
         let sumB = element.expense;
 
@@ -25,28 +30,20 @@ function balance(balanceList){
         }
         if (!element.expense) {
             sumB = 0
-        }   
-        let sum = sumA - sumB;
+        }
+        sum += sumA - sumB;
 
             HTML += `
             <div class="table-row">
-                <div class="cell">1</div>
-                <div class="cell">${element.month}</div>
-                <div class="cell">${element.income} Eur</div>
-                <div class="cell">${element.expense}</div>
+                <div class="cell">${i+1}</div>
+                <div class="cell">${monthList[ element.month-1 ]}</div>
+                <div class="cell">${element.income ? element.income+' Eur' : '-'}</div>
+                <div class="cell">${element.expense ? element.expense+' Eur' : '-'}</div>
                 <div class="cell">${sum} Eur</div>
             </div>
             `;
     }
     return document.querySelector('#table-content').innerHTML = HTML;
 }
-balance(account);
+balance(account, month);
 
-function rimantoMetai() {
-    let HTML = '';
-    HTML += `
-    <h1>Rimanto metai</h1>
-    `;
-    return document.querySelector('.container .row').innerHTML = HTML;
-}
-rimantoMetai();
